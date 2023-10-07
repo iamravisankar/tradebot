@@ -38,6 +38,6 @@ jobs:
           fi
           cd tradebot
           git pull origin main
-          # npm install --production
+          npm install --production
           # npm run build
-          pm2 restart all  # If you're using PM2 or similar to keep your app running
+          # pm2 restart all  # If you're using PM2 or similar to keep your app running
