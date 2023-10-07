@@ -34,7 +34,7 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
           if [ ! -d "tradebot" ]; then
-            git clone YOUR_GITHUB_REPO_URL tradebot
+            git clone https://github.com/iamravisankar/tradebot.git tradebot
           fi
           cd tradebot
           git pull origin main
