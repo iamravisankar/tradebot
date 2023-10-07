@@ -33,7 +33,7 @@ jobs:
         username: ubuntu
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
-          cd your-repo-name
+          cd tradebot
           git pull origin main
           npm install --production
           npm run build
