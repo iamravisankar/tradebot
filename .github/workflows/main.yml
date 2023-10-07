@@ -33,6 +33,9 @@ jobs:
         username: ubuntu
         key: ${{ secrets.DEPLOY_KEY }}
         script: |
+          if [ ! -d "tradebot" ]; then
+            git clone YOUR_GITHUB_REPO_URL tradebot
+          fi
           cd tradebot
           git pull origin main
           npm install --production
