@@ -29,7 +29,7 @@ export const techAnalysis = async (
       data: {
         time_frame: time_frame,
         stocks: stocks,
-        user_broker_id: "TC2510", // Assuming this remains constant. If it's dynamic, make it a parameter.
+        user_broker_id: "TC2529", // Assuming this remains constant. If it's dynamic, make it a parameter.
       },
     });
 
@@ -105,8 +105,10 @@ export const techAnalysis = async (
         }
     };
     
-    // Call the function for NSE_REPL
-    insertTechData('NSE_REPL', techData.data['NSE_REPL']); 
+
+    for (let stock in techData.data) {
+        insertTechData(stock, techData.data[stock]); 
+    }
     // You can return the data, log it, or process it further here.
     return techData;
   } catch (error: any) {
