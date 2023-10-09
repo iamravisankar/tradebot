@@ -1,13 +1,33 @@
 import axios, { AxiosResponse } from 'axios';
 import { pool } from './dbConfig';
 
+
+const fetchSecurityIdsFromDB = async (): Promise<string[]> => {
+    try {
+        const result = await pool.query('SELECT security_id FROM equity_security_master WHERE in_watchlist = true');
+        const securityIds: string[] = result.rows.map(row => `NSE:${row.security_id}:EQUITY`);
+        return securityIds;
+    } catch (error: any) {
+        console.error('Error fetching security IDs:', error.message);
+        return [];
+    }
+};
+
 export const fetchDataAndInsert = async () => {
     const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJtZXJjaGFudCIsImlzcyI6InBheXRtbW9uZXkiLCJpZCI6NTYwMzcyLCJleHAiOjE2OTY4NzYxOTl9.tTgXbsXTQ73rlOH7L7kqdLbm8EZaQtTnfgUi5JoGQJ0';
     const apiUrl: string = 'https://developer.paytmmoney.com/data/v1/price/live';
-    const preferences: string[] = ['NSE:17167:EQUITY'];
+    // const preferences: string[] = ['NSE:3456:EQUITY'];
+    const preferences: string[] = await fetchSecurityIdsFromDB();
+
     const mode: string = 'FULL';
 
     try {
+
+        if (preferences.length === 0) {
+            console.log('No security IDs found in the watchlist.');
+            return;
+        }
+        
         const response: AxiosResponse<any> = await axios.get(apiUrl, {
             headers: {
                 'x-jwt-token': authToken,
@@ -19,6 +39,7 @@ export const fetchDataAndInsert = async () => {
         });
 
         const data = response.data;
+        console.log(data);
 
         for (let stock of data.data) {
             // Insert into stock_data
