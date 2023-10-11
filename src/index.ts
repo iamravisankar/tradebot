@@ -1,5 +1,6 @@
 import express from 'express';
 import { pool } from "./dbConfig";
+import { loginHandler } from "./login";
 
 const app = express();
 const PORT = 3000;
@@ -15,6 +16,9 @@ async function getTableCounts() {
 
     return counts;
 }
+
+app.get('/login/:token', loginHandler);
+
 
 app.get('/', async (req, res) => {
     try {
@@ -32,8 +36,10 @@ app.get('/', async (req, res) => {
                 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
             </head>
             <body>
+            <a href="https://login.paytmmoney.com/merchant-login?apiKey=afa7cc67abba4778a2fb4ca4192cc34f" class="btn">Login</a>
+           
                 <div class="container mt-5">
-                    <h2 class="text-center mb-4">Table Counts</h2>
+                    <h2 class="text-center mb-4">Counts</h2>
                     <div id="tableCounts" class="d-flex justify-content-center flex-wrap">
                         ${Object.entries(counts).map(([table, count]) => `
                             <div class="m-2 p-4 border rounded w-100 w-md-auto">
