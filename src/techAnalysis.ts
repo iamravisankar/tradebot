@@ -3,7 +3,8 @@ import { pool } from "./dbConfig";
 
 export const techAnalysis = async (
   time_frame: string,
-  stocks: string[]
+  stocks: string[],
+  unique_id: number
 ): Promise<any> => {
   try {
     const response: AxiosResponse<any> = await axios({
@@ -39,14 +40,16 @@ export const techAnalysis = async (
 
     const insertTechData = async (stockName: string, data: any) => {
         try {
+            const tableName = `tech_analysis_${time_frame}`;
             const insertQuery = `
-                INSERT INTO tech_analysis (
-                    stock_name, adx, awesome_oscillator, cci, change, close, ema10, ema100, ema20, ema200, ema30, ema5, ema50, hma, ichimoku, loss_amt, loss_signals, macd, macdhist, momentum, rec_adx, rec_ao, rec_cci, rec_ichimoku, rec_macd, rec_mom, rec_rsi, rec_stochastic_k, rec_stochastic_rsi_fast, rec_ult_osc, rec_willr, rsi, signals, sma10, sma100, sma20, sma200, sma30, sma5, sma50, state, status, stoch_rsi_fast, stochastic_k, ult_osc, vwma, willr, win_amt, win_pct, win_signals
+                INSERT INTO ${tableName} (
+                  unique_id,stock_name, adx, awesome_oscillator, cci, change, close, ema10, ema100, ema20, ema200, ema30, ema5, ema50, hma, ichimoku, loss_amt, loss_signals, macd, macdhist, momentum, rec_adx, rec_ao, rec_cci, rec_ichimoku, rec_macd, rec_mom, rec_rsi, rec_stochastic_k, rec_stochastic_rsi_fast, rec_ult_osc, rec_willr, rsi, signals, sma10, sma100, sma20, sma200, sma30, sma5, sma50, state, status, stoch_rsi_fast, stochastic_k, ult_osc, vwma, willr, win_amt, win_pct, win_signals
                 ) VALUES (
-                    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50
+                    $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, $41, $42, $43, $44, $45, $46, $47, $48, $49, $50, $51
                 )`;
     
             const values = [
+                unique_id,
                 stockName,
                 data.adx,
                 data.awesome_oscillator,

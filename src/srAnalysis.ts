@@ -3,7 +3,8 @@ import { pool } from "./dbConfig";
 
 export const srAnalysis = async (
   time_frame: string,
-  stocks: string[]
+  stocks: string[],
+  unique_id: number
 ): Promise<any> => {
   try {
     const response: AxiosResponse<any> = await axios({
@@ -37,14 +38,16 @@ export const srAnalysis = async (
 
     const insertSrData = async (stockName: string, data: any) => {
         try {
+            const tableName = `sr_analysis_${time_frame}`;
             const insertQuery = `
-                INSERT INTO sr_analysis_data (
-                    stock_name, close, pp, r1, r2, r3, s1, s2, s3
+                INSERT INTO ${tableName}  (
+                  unique_id,stock_name, close, pp, r1, r2, r3, s1, s2, s3
                 ) VALUES (
-                    $1, $2, $3, $4, $5, $6, $7, $8, $9
+                    $1, $2, $3, $4, $5, $6, $7, $8, $9,$10
                 )`;
 
             const values = [
+                unique_id,
                 stockName,
                 data.close,
                 data.pp,

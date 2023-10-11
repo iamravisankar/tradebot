@@ -3,6 +3,8 @@ import { srAnalysis } from './srAnalysis';
 import { techAnalysis } from './techAnalysis';
 import { pool } from './dbConfig';
 
+const unique_id = Math.floor(Date.now() / 1000); //timestampInSeconds
+
 
 const fetchExchangeSymbolsFromDB = async (): Promise<string[]> => {
     try {
@@ -24,7 +26,12 @@ async function fetchSrAnalysisData() {
             return;
         }
 
-        const data = await srAnalysis("min", exchangeSymbols);
+        const data_min = await srAnalysis("min", exchangeSymbols,unique_id);
+        const data_3min = await srAnalysis("3min", exchangeSymbols,unique_id);
+        const data_5min = await srAnalysis("5min", exchangeSymbols,unique_id);
+        const data_15min = await srAnalysis("15min", exchangeSymbols,unique_id);
+        const data_30min = await srAnalysis("30min", exchangeSymbols,unique_id);
+        const data_day = await srAnalysis("day", exchangeSymbols,unique_id);
         // console.log('Fetched SR Analysis data:', data);
 
     } catch (error: any) {
@@ -41,7 +48,13 @@ async function fetchTechAnalysisData() {
             return;
         }
 
-        const data = await techAnalysis("min", exchangeSymbols);
+        const data_min = await techAnalysis("min", exchangeSymbols,unique_id);
+        const data_3min = await techAnalysis("3min", exchangeSymbols,unique_id);
+        const data_5min = await techAnalysis("5min", exchangeSymbols,unique_id);
+        const data_15min = await techAnalysis("15min", exchangeSymbols,unique_id);
+        const data_30min = await techAnalysis("30min", exchangeSymbols,unique_id);
+        const data_day = await techAnalysis("day", exchangeSymbols,unique_id);
+
         // console.log('Fetched Technical Analysis data:', data); // Uncomment if you want to log this data
 
     } catch (error: any) {
@@ -50,7 +63,7 @@ async function fetchTechAnalysisData() {
 }
 
 // Data Insertion Function Call
-fetchDataAndInsert();
+fetchDataAndInsert(unique_id);
 
 // SR Analysis Data Function Call (Uncomment to use)
 fetchSrAnalysisData();
