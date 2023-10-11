@@ -14,7 +14,7 @@ const fetchExchangeSymbolsFromDB = async (): Promise<string[]> => {
     } catch (error: any) {
         console.error('Error fetching exchange symbols:', error.message);
         return [];
-    }
+    } 
 };
 
 async function fetchSrAnalysisData() {
