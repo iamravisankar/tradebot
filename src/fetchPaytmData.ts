@@ -13,8 +13,19 @@ const fetchSecurityIdsFromDB = async (): Promise<string[]> => {
     }
 };
 
+const fetchAuthTokenFromDB = async (): Promise<string | null> => {
+    try {
+        const result = await pool.query('SELECT access_token FROM keys WHERE id = 1');
+        return result.rows[0]?.access_token || null;
+    } catch (error: any) {
+        console.error('Error fetching access token from DB:', error.message);
+        return null;
+    }
+};
+
+
 export const fetchDataAndInsert = async (unique_id: number) => {
-    const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJtZXJjaGFudCIsImlzcyI6InBheXRtbW9uZXkiLCJpZCI6NTY3NDgyLCJleHAiOjE2OTcwNDg5OTl9.SOTpQSlXTCnIeuspsHc7o32GO1NiGfvJryHoNMxrDTA';
+    const authToken = await fetchAuthTokenFromDB();
     const apiUrl: string = 'https://developer.paytmmoney.com/data/v1/price/live';
     // const preferences: string[] = ['NSE:3456:EQUITY'];
     const preferences: string[] = await fetchSecurityIdsFromDB();
@@ -39,7 +50,6 @@ export const fetchDataAndInsert = async (unique_id: number) => {
         });
 
         const data = response.data;
-        console.log(data);
 
         for (let stock of data.data) {
             // Insert into stock_data
