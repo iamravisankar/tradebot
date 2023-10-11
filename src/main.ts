@@ -31,6 +31,7 @@ async function fetchSrAnalysisData() {
         const data_5min = await srAnalysis("5min", exchangeSymbols,unique_id);
         const data_15min = await srAnalysis("15min", exchangeSymbols,unique_id);
         const data_30min = await srAnalysis("30min", exchangeSymbols,unique_id);
+        const data_hour = await srAnalysis("hour", exchangeSymbols,unique_id);
         const data_day = await srAnalysis("day", exchangeSymbols,unique_id);
         // console.log('Fetched SR Analysis data:', data);
 
@@ -53,6 +54,7 @@ async function fetchTechAnalysisData() {
         const data_5min = await techAnalysis("5min", exchangeSymbols,unique_id);
         const data_15min = await techAnalysis("15min", exchangeSymbols,unique_id);
         const data_30min = await techAnalysis("30min", exchangeSymbols,unique_id);
+        const data_hour = await techAnalysis("hour", exchangeSymbols,unique_id);
         const data_day = await techAnalysis("day", exchangeSymbols,unique_id);
 
         // console.log('Fetched Technical Analysis data:', data); // Uncomment if you want to log this data
