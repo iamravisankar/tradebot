@@ -11,7 +11,7 @@ const pool = new Pool({
 });
 
 const fetchDataAndInsert = async () => {
-    const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJtZXJjaGFudCIsImlzcyI6InBheXRtbW9uZXkiLCJpZCI6NTU5NDY4LCJleHAiOjE2OTY3ODk3OTl9.yIBksEEsuFnIRAjvdlcj8w4TTdP9o1QmKkZ8FBSX21s';
+    const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJtZXJjaGFudCIsImlzcyI6InBheXRtbW9uZXkiLCJpZCI6NTY3NDgyLCJleHAiOjE2OTcwNDg5OTl9.SOTpQSlXTCnIeuspsHc7o32GO1NiGfvJryHoNMxrDTA';
     const apiUrl: string = 'https://developer.paytmmoney.com/data/v1/price/live';
     const preferences: string[] = ['NSE:17167:EQUITY'];
     const mode: string = 'FULL';
