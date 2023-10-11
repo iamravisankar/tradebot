@@ -14,7 +14,7 @@ const fetchSecurityIdsFromDB = async (): Promise<string[]> => {
 };
 
 export const fetchDataAndInsert = async () => {
-    const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJtZXJjaGFudCIsImlzcyI6InBheXRtbW9uZXkiLCJpZCI6NTYwMzcyLCJleHAiOjE2OTY4NzYxOTl9.tTgXbsXTQ73rlOH7L7kqdLbm8EZaQtTnfgUi5JoGQJ0';
+    const authToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJtZXJjaGFudCIsImlzcyI6InBheXRtbW9uZXkiLCJpZCI6NTY3NDgyLCJleHAiOjE2OTcwNDg5OTl9.SOTpQSlXTCnIeuspsHc7o32GO1NiGfvJryHoNMxrDTA';
     const apiUrl: string = 'https://developer.paytmmoney.com/data/v1/price/live';
     // const preferences: string[] = ['NSE:3456:EQUITY'];
     const preferences: string[] = await fetchSecurityIdsFromDB();
