@@ -5,7 +5,7 @@ const app = express();
 const PORT = 3000;
 
 async function getTableCounts() {
-    const tables = ['stock_data', 'stock_depth_buy', 'stock_depth_sell', 'tech_analysis_min','sr_analysis_data_min'];
+    const tables = ['stock_data', 'stock_depth_buy', 'stock_depth_sell', 'tech_analysis_min','sr_analysis_min'];
     const counts: Record<string, number> = {};
 
     for (const table of tables) {
