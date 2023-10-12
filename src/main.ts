@@ -1,6 +1,7 @@
 import { fetchDataAndInsert } from './fetchPaytmData';
 import { srAnalysis } from './srAnalysis';
 import { techAnalysis } from './techAnalysis';
+import { fetchExpiryDates } from './fetchOptionChain';
 import { pool } from './dbConfig';
 
 const unique_id = Math.floor(Date.now() / 1000); //timestampInSeconds
@@ -72,3 +73,6 @@ fetchSrAnalysisData();
 
 // Technical Analysis Data Function Call
 fetchTechAnalysisData();
+
+fetchExpiryDates('BANKNIFTY','CALL',unique_id);
+fetchExpiryDates('BANKNIFTY','PUT',unique_id);

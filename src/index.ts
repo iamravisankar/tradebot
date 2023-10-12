@@ -6,7 +6,14 @@ const app = express();
 const PORT = 3000;
 
 async function getTableCounts() {
-    const tables = ['stock_data', 'stock_depth_buy', 'stock_depth_sell', 'tech_analysis_min','sr_analysis_min'];
+    const tables = [
+        'option_chain', 'sr_analysis_15min', 'sr_analysis_30min',
+        'sr_analysis_3min', 'sr_analysis_5min', 'sr_analysis_day',
+        'sr_analysis_hour', 'sr_analysis_min', 'stock_data',
+        'stock_depth_buy', 'stock_depth_sell', 'tech_analysis_15min',
+        'tech_analysis_30min', 'tech_analysis_3min', 'tech_analysis_5min',
+        'tech_analysis_day', 'tech_analysis_hour', 'tech_analysis_min'
+    ];
     const counts: Record<string, number> = {};
 
     for (const table of tables) {
@@ -19,12 +26,10 @@ async function getTableCounts() {
 
 app.get('/login/:token', loginHandler);
 
-
 app.get('/', async (req, res) => {
     try {
         const counts = await getTableCounts();
 
-        // Create HTML response with inline styles and scripts
         const htmlResponse = `
             <!DOCTYPE html>
             <html lang="en">
@@ -36,7 +41,7 @@ app.get('/', async (req, res) => {
                 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
             </head>
             <body>
-            <a href="https://login.paytmmoney.com/merchant-login?apiKey=afa7cc67abba4778a2fb4ca4192cc34f" class="btn">Login</a>
+                <a href="https://login.paytmmoney.com/merchant-login?apiKey=afa7cc67abba4778a2fb4ca4192cc34f" class="btn">Login</a>
            
                 <div class="container mt-5">
                     <h2 class="text-center mb-4">Counts</h2>
@@ -68,7 +73,6 @@ app.get('/', async (req, res) => {
         res.status(500).send('Error retrieving data');
     }
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
