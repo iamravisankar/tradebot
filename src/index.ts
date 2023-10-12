@@ -36,7 +36,6 @@ app.get('/', async (req, res) => {
             <head>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Table Counts</title>
                 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
                 <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
             </head>
@@ -44,10 +43,9 @@ app.get('/', async (req, res) => {
                 <a href="https://login.paytmmoney.com/merchant-login?apiKey=afa7cc67abba4778a2fb4ca4192cc34f" class="btn">Login</a>
            
                 <div class="container mt-5">
-                    <h2 class="text-center mb-4">Counts</h2>
                     <div id="tableCounts" class="d-flex justify-content-center flex-wrap">
                         ${Object.entries(counts).map(([table, count]) => `
-                            <div class="m-2 p-4 border rounded w-100 w-md-auto">
+                            <div class="m-2 p-1 border rounded w-100 w-md-auto">
                                 <strong>${table}</strong>: <span class="count" data-count="${count}">0</span>
                             </div>
                         `).join('')}
