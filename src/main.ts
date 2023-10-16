@@ -65,14 +65,26 @@ async function fetchTechAnalysisData() {
     }
 }
 
-// Data Insertion Function Call
-fetchDataAndInsert(unique_id);
+const currentTime = new Date();
+const currentHours = currentTime.getHours();
+const currentMinutes = currentTime.getMinutes();
 
-// SR Analysis Data Function Call (Uncomment to use)
-fetchSrAnalysisData();
+const startTime = 9 * 60;  // 9:00 AM in minutes
+const endTime = 15 * 60 + 30;  // 3:30 PM in minutes
 
-// Technical Analysis Data Function Call
-fetchTechAnalysisData();
+const currentTimeInMinutes = currentHours * 60 + currentMinutes;
 
-fetchExpiryDates('BANKNIFTY','CALL',unique_id);
-fetchExpiryDates('BANKNIFTY','PUT',unique_id);
+if (currentTimeInMinutes >= startTime && currentTimeInMinutes <= endTime) {
+    fetchDataAndInsert(unique_id);
+    fetchSrAnalysisData();
+    fetchTechAnalysisData();
+    fetchExpiryDates('BANKNIFTY','CALL',unique_id);
+    fetchExpiryDates('BANKNIFTY','PUT',unique_id);
+} else {
+    console.log("The script only runs between 9:00 AM and 3:30 PM.");
+}
+
+
+
+
+
